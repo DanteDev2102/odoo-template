@@ -1,16 +1,17 @@
 version: "3"
 services:
-  web-hagus:
+  pos:
     build:
       context: .
     container_name: pos
-    # command: odoo --dev=all -u binaural_webpos
+    # command: odoo -u pos_ingeint --dev=all
+    command: odoo -u pos_ingeint --dev=all
     depends_on:
       - pos_db
     ports:
       - "16000:8069"
     volumes:
-      - odoo-web-hagus:/var/lib/odoo
+      - odoo-web-pos:/var/lib/odoo
       - ./config:/etc/odoo
       # - ./enterprise:/mnt/extra-addons
       - ./custom:/mnt/custom-addons
@@ -27,7 +28,7 @@ services:
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - odoo-db-hagus:/var/lib/postgresql/data/pgdata
+      - odoo-db-pos:/var/lib/postgresql/data/pgdata
     # restart: always
     networks:
       - postgres_bd
@@ -51,6 +52,6 @@ networks:
   postgres_bd:
 
 volumes:
-  odoo-web-hagus:
-  odoo-db-hagus:
+  odoo-web-pos:
+  odoo-db-pos:
   pgadmin:
