@@ -4,7 +4,6 @@ services:
     build:
       context: .
     container_name: pos
-    # command: odoo -u pos_ingeint --dev=all
     command: odoo -u pos_ingeint --dev=all
     depends_on:
       - pos_db
