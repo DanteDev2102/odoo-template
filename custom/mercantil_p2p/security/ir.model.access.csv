@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wizard_config_mercantil_payment,access_wizard_config_mercantil_payment,model_wizard_config_mercantil_payment,,1,1,1,1
