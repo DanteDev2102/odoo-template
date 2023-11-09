@@ -8,7 +8,7 @@ class ConfigElectronicPayment(models.Model):
     _sql_constrains = [
         (
             "config_electronic_payment_unique_company",
-            "unique(company_id)",
+            "UNIQUE(company_id)",
             _("only one configuration can exist per company"),
         )
     ]
@@ -52,7 +52,9 @@ class ConfigElectronicPayment(models.Model):
                 "name": f"reset counter of day {company_name}",
                 "active": True,
                 "numbercall": -1,
-                "model_id": self.env.ref("base.model_res_company").id,
+                "model_id": self.env.ref(
+                    "thunder_electronic_payment.model_config_electronic_payment"
+                ).id,
                 "state": "code",
                 "user_id": self.env.ref("base.user_root").id,
                 "interval_number": 1,
@@ -65,8 +67,8 @@ class ConfigElectronicPayment(models.Model):
         ir_cron.with_user(SUPERUSER_ID).create(cron_data)
 
     @api.model
-    def create(self, config):
-        res = super().create(config)
+    def create(self, config_data):
+        res = super().create(config_data)
 
         for config in self:
             config.create_cron_reset_counters()
@@ -79,6 +81,9 @@ class ConfigElectronicPayment(models.Model):
         company_name = self.company_id.name
 
         cron = self.env["ir.cron"].search([("name", "ilike", f"%{company_name}%")])
+
+        if not cron:
+            return
 
         current_date = fields.Date.context_today(self)
         hours = int(self.hour_closed_config)

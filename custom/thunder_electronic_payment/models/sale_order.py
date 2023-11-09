@@ -24,8 +24,6 @@ class SaleOrder(models.Model):
             if is_process:
                 continue
 
-            order.action_confirm()
-
             is_special_taxpayer = (
                 "contribuyente especial"
                 in order.partner_id.tax_payer_type_id.name.lower()
@@ -33,6 +31,8 @@ class SaleOrder(models.Model):
 
             if is_special_taxpayer:
                 continue
+
+            order.action_confirm()
 
             invoice = order._create_invoices()
 
@@ -51,13 +51,13 @@ class SaleOrder(models.Model):
             is_valid_time = current_time < max_time
 
             if not is_valid_time:
-                invoice.journal_id = config.not_fiscal_journal
+                invoice.journal_id = config.not_fiscal_journal.id
                 continue
 
             is_fiscal_client = order.partner_id.vat[0] in ["J", "G"]
 
             if is_fiscal_client:
-                invoice.journal_id = config.fiscal_journal
+                invoice.journal_id = config.fiscal_journal.id
                 continue
 
             possible_create_fiscal_invoice = (
@@ -65,11 +65,11 @@ class SaleOrder(models.Model):
             )
 
             if possible_create_fiscal_invoice:
-                invoice.journal_id = config.fiscal_journal
+                invoice.journal_id = config.fiscal_journal.id
                 config.invoice_fiscal_counter += 1
                 continue
 
-            invoice.journal_id = config.not_fiscal_journal
+            invoice.journal_id = config.not_fiscal_journal.id
 
             invoice._post()
 
