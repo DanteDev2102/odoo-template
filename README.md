@@ -1,4 +1,4 @@
-ARQUITECTURA BASE PARA PROYECTOS BASADOS EN ODOO
+# ARQUITECTURA BASE PARA PROYECTOS BASADOS EN ODOO
 
 config/ -> Archivos de configuración del proyecto. (odoo.conf, entre otros...)
 
