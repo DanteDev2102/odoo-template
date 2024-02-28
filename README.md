@@ -12,6 +12,11 @@ third_party/ -> Directorio con los modulos de terceros que deban ser integrados,
 
 .env.example -> Variables de entorno necesarias para levantar el proyecto (cambiarle el nombre a .env)
 
+Dockerfile -> Cambiar la version en el FROM en caso de requerir una version distinta de odoo
+
+
+
+
 
 
 
