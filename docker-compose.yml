@@ -4,16 +4,18 @@ services:
     build:
       context: .
     container_name: ${PROJECT_NAME}
-    command: odoo -u pos_ingeint --dev=all
+    # command: odoo -u pos_ingeint --dev=all
     depends_on:
-      - pos_db
+      - db
     ports:
       - ${ODOO_PORT}:8069
     volumes:
-      - odoo-web-pos:/var/lib/odoo
+      - web:/var/lib/odoo
       - ./config:/etc/odoo
-      # - ./enterprise:/mnt/extra-addons
+      - ./enterprise:/mnt/extra-addons
       - ./custom:/mnt/custom-addons
+      - ./ingeint:/mnt/ingeint-addons
+      - ./third_party:/mnt/-addons
     environment:
       - PYTHONUNBUFFERED=0
     # restart: always
@@ -28,7 +30,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - odoo-db-pos:/var/lib/postgresql/data/pgdata
+      - db:/var/lib/postgresql/data/pgdata
     # restart: always
     networks:
       - postgres_bd
@@ -52,6 +54,6 @@ networks:
   postgres_bd:
 
 volumes:
-  odoo-web-pos:
-  odoo-db-pos:
+  web:
+  db:
   pgadmin:
