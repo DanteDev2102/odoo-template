@@ -3,6 +3,7 @@ services:
   odoo:
     build:
       context: .
+    # image: odoo:${ODOO_VERSION}
     container_name: ${PROJECT_NAME}
     # command: odoo -u pos_ingeint --dev=all
     depends_on:
