@@ -14,8 +14,8 @@ services:
       - ./config:/etc/odoo
       - ./enterprise:/mnt/extra-addons
       - ./custom:/mnt/custom-addons
-      - ./ingeint:/mnt/ingeint-addons
-      - ./third_party:/mnt/-addons
+      - ./internal:/mnt/internal-addons
+      - ./third_party:/mnt/external-addons
     environment:
       - PYTHONUNBUFFERED=0
     # restart: always
