@@ -3,9 +3,8 @@ services:
   odoo:
     build:
       context: .
-    # image: odoo:${ODOO_VERSION}
     container_name: ${PROJECT_NAME}
-    # command: odoo -u pos_ingeint --dev=all
+    # command: odoo -u point_of_sale --dev=all
     depends_on:
       - db
     ports:
@@ -26,9 +25,9 @@ services:
     container_name: ${PROJECT_NAME}_db
     image: postgres:${POSTGRES_VERSION}
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - db:/var/lib/postgresql/data/pgdata
@@ -41,14 +40,14 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: jdap.dmc@gmail.com
       PGADMIN_DEFAULT_PASSWORD: odoo
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_SERVER_MODE: "False"
     networks:
       - postgres_bd
     volumes:
-        - pgadmin:/root/.pgadmin
+      - pgadmin:/root/.pgadmin
 
     ports:
-      - ${PGADMIN_PORT}:80    
+      - ${PGADMIN_PORT}:80
     # restart: unless-stopped
 
 networks:
