@@ -1,0 +1,9 @@
+Dockerfile
+docker-compose.yml
+.env.example
+.env
+README.md
+restore_db.sh
+.git
+.gitignore
+.dockerignore
