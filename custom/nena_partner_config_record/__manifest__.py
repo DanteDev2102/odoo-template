@@ -22,5 +22,7 @@
         "views/condition.xml",
         "views/cause_status.xml",
         "views/menuitem.xml",
+        "views/chain.xml",
+        "views/availability.xml",
     ],
 }
